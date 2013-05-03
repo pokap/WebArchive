@@ -1,0 +1,20 @@
+{
+    "name": "pokap/webarchivedotorg",
+    "type": "library",
+    "description": "Client for web.archive.org",
+    "keywords": ["archive"],
+    "license": "MIT",
+    "authors": [
+        {"name": "Florent Denis", "email": "dflorent.pokap@gmail.com"}
+    ],
+    "require": {
+        "zendframework/zend-http": "*",
+        "symfony/dom-crawler": "*",
+        "symfony/css-selector": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Pok\\WebArchiveDotOrg": "src/"
+        }
+    }
+}
