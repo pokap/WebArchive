@@ -10,6 +10,11 @@ use Zend\Http\Client as HttpClient;
 class Client
 {
     /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
      * @var \Zend\Http\Client
      */
     protected $client;
@@ -17,18 +22,31 @@ class Client
     /**
      * Constructor.
      *
-     * @param Request $request
+     * @param Request            $request
+     * @param array|\Traversable $options
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, $options = null)
     {
-        $this->client = new HttpClient($request->getUri());
+        $this->request = $request;
+        $this->client  = new HttpClient($request->getUri(), $options);
     }
 
     /**
-     * @return Response
+     * Send HTTP request.
+     *
+     * @return BaseResponse
+     *
+     * @throws \Zend\Http\Exception\RuntimeException
+     * @throws \Zend\Http\Client\Exception\RuntimeException
      */
     public function send()
     {
-        return new Response($this->client->send());
+        $response = $this->client->send();
+
+        if ($this->request->isList()) {
+            return new ResponseList($response);
+        } else {
+            return new Response($response, $this->client->getUri());
+        }
     }
 }

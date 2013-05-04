@@ -22,10 +22,10 @@ class ClientMock
     }
 
     /**
-     * @return ResponseMock
+     * @return ResponseListMock
      */
     public function send()
     {
-        return new ResponseMock($this->client);
+        return new ResponseListMock($this->client);
     }
 }

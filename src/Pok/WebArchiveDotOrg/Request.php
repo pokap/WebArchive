@@ -13,20 +13,40 @@ class Request
     protected $uri;
 
     /**
+     * @var boolean
+     */
+    protected $isList;
+
+    /**
      * Constructor.
      *
-     * @param string       $url
-     * @param null|integer $year
+     * @param string                 $url
+     * @param null|integer|\DateTime $date (optional)
      */
-    public function __construct($url, $year = null)
+    public function __construct($url, $date = null)
     {
-        if ($year) {
-            $path = '/' . $year . '1201000000*/';
+        $this->isList = true;
+
+        if ($date instanceof \DateTime) {
+            $this->isList = false;
+            $path = sprintf('/%s/', $date->format('YmdHis'));
+        } elseif ($date) {
+            $path = sprintf('/%d1201000000*/', $date);
         } else {
             $path = '/*/';
         }
 
         $this->uri = 'http://web.archive.org/web' . $path . $url;
+    }
+
+    /**
+     * Request for a list of archives.
+     *
+     * @return boolean
+     */
+    public function isList()
+    {
+        return $this->isList;
     }
 
     /**

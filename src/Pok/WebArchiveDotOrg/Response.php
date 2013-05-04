@@ -3,78 +3,38 @@
 namespace Pok\WebArchiveDotOrg;
 
 use Zend\Http\Response as HttpResponse;
-
-use Symfony\Component\DomCrawler\Crawler;
+use Zend\Uri\Http;
 
 /**
  * @author Florent Denis <dflorent.pokap@gmail.com>
  */
-class Response
+class Response extends BaseResponse
 {
     /**
-     * @var \Zend\Http\Response
+     * @var Http
      */
-    protected $response;
-
-    /**
-     * @var \Symfony\Component\DomCrawler\Crawler
-     */
-    protected $crawler;
+    protected $uri;
 
     /**
      * Constructor.
      *
      * @param HttpResponse $response
+     * @param Http         $uri
      */
-    public function __construct(HttpResponse $response)
+    public function __construct(HttpResponse $response, Http $uri)
     {
-        $this->response = $response;
+        parent::__construct($response);
+
+        $this->uri = $uri;
     }
 
     /**
-     * @return bool
+     * Get uri (from the request).
+     *
+     * @return Http
      */
-    public function isValid()
+    public function getUri()
     {
-        return $this->response->isOk();
-    }
-
-    /**
-     * @return \DateTime[]
-     */
-    public function getDateArchives()
-    {
-        return $this->getCrawler()->filter('.day a')->each(function ($node, $i) {
-            /** @var \DomElement $node */
-
-            return \DateTime::createFromFormat('YmdHis', substr($node->getAttribute('href'), 5, 14));
-        });
-    }
-
-    /**
-     * @return \DateTime[]
-     */
-    public function getDateSnapshots()
-    {
-        return $this->getCrawler()->filter('.pop ul a')->each(function ($node, $i) {
-            /** @var \DomElement $node */
-
-            return \DateTime::createFromFormat('YmdHis', substr($node->getAttribute('href'), 5, 14));
-        });
-    }
-
-    /**
-     * @return Crawler
-     */
-    protected function getCrawler()
-    {
-        if (null === $this->crawler) {
-            $this->crawler = new Crawler();
-            $this->crawler->addContent($this->response->getBody());
-
-            $this->crawler = $this->crawler->filter('#wbCalendar .date');
-        }
-
-        return $this->crawler;
+        return $this->uri;
     }
 }

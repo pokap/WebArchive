@@ -4,7 +4,6 @@ namespace Pok\WebArchiveDotOrg\Tests;
 
 use Pok\WebArchiveDotOrg\Tests\Mocks\ClientMock;
 use Pok\WebArchiveDotOrg\Tests\Mocks\RequestMock;
-use Pok\WebArchiveDotOrg\Tests\Mocks\ResponseMock;
 
 class ArchiveDotOrgTest extends \PHPUnit_Framework_TestCase
 {
