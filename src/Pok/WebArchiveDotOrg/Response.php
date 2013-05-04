@@ -17,9 +17,9 @@ class Response
     protected $response;
 
     /**
-     * @var
+     * @var \Symfony\Component\DomCrawler\Crawler
      */
-    private $crawler;
+    protected $crawler;
 
     /**
      * Constructor.

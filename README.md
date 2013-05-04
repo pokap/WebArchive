@@ -1,12 +1,12 @@
 Web archive dot com API
 =======
 
-**Requires** at least *PHP 5.3.3* with Doctrine 2 library. Compatible PHP 5.4 too.
+**Requires** at least *PHP 5.3.3*. Compatible PHP 5.4 too.
 
 Usage
 -------------
 
-Mapping:
+Example :
 
 ``` php
 $client = new Client(new Request('http://archive.org/', 2013));
