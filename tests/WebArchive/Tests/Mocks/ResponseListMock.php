@@ -1,9 +1,10 @@
 <?php
 
-namespace Pok\WebArchiveDotOrg\Tests\Mocks;
+namespace WebArchive\Tests\Mocks;
 
-use Pok\WebArchiveDotOrg\ResponseList;
 use Symfony\Component\DomCrawler\Crawler;
+
+use WebArchive\ResponseList;
 
 class ResponseListMock extends ResponseList
 {

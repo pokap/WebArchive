@@ -7,4 +7,4 @@ if (!file_exists($file)) {
 
 $loader = require_once $file;
 
-$loader->add('Pok\\WebArchiveDotOrg\\Tests', __DIR__);
+$loader->add('WebArchive\\Tests', __DIR__);

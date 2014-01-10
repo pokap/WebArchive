@@ -13,7 +13,7 @@
 >
     <testsuites>
         <testsuite name="WebArchiveDotOrg Test Suite">
-            <directory>./tests/Pok</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 
@@ -21,7 +21,7 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <directory suffix="*.php">./src/Pok/WebArchiveDotOrg</directory>
+                <directory suffix="*.php">./src/WebArchiveDotOrg</directory>
             </exclude>
         </whitelist>
     </filter>

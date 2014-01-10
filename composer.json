@@ -8,13 +8,13 @@
         {"name": "Florent Denis", "email": "dflorent.pokap@gmail.com"}
     ],
     "require": {
-        "zendframework/zend-http": "*",
-        "symfony/dom-crawler": "*",
-        "symfony/css-selector": "*"
+        "zendframework/zend-http": "2.*",
+        "symfony/dom-crawler": ">=2.3,<2.7",
+        "symfony/css-selector": ">=2.3,<2.7"
     },
     "autoload": {
         "psr-0": {
-            "Pok\\WebArchiveDotOrg": "src/"
+            "WebArchive": "src/"
         }
     }
 }

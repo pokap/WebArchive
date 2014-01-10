@@ -1,6 +1,6 @@
 <?php
 
-namespace Pok\WebArchiveDotOrg;
+namespace WebArchive;
 
 use Zend\Http\Client as HttpClient;
 

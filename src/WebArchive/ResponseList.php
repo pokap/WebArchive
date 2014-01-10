@@ -1,6 +1,6 @@
 <?php
 
-namespace Pok\WebArchiveDotOrg;
+namespace WebArchive;
 
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -33,9 +33,8 @@ class ResponseList extends BaseResponse
     protected function getDates($selector)
     {
         return $this->getCrawler()->filter($selector)->each(function ($node, $i) {
-            /** @var \DomElement $node */
-
-            return \DateTime::createFromFormat('YmdHis', substr($node->getAttribute('href'), 5, 14));
+            /** @var Crawler $node */
+            return \DateTime::createFromFormat('YmdHis', substr($node->attr('href'), 5, 14));
         });
     }
 

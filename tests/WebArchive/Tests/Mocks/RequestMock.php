@@ -1,8 +1,8 @@
 <?php
 
-namespace Pok\WebArchiveDotOrg\Tests\Mocks;
+namespace WebArchive\Tests\Mocks;
 
-use Pok\WebArchiveDotOrg\Request;
+use WebArchive\Request;
 
 class RequestMock extends Request
 {

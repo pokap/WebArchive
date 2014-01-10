@@ -1,6 +1,6 @@
 <?php
 
-namespace Pok\WebArchiveDotOrg;
+namespace WebArchive;
 
 /**
  * @author Florent Denis <dflorent.pokap@gmail.com>

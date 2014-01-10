@@ -1,9 +1,9 @@
 <?php
 
-namespace Pok\WebArchiveDotOrg\Tests;
+namespace WebArchive\Tests;
 
-use Pok\WebArchiveDotOrg\Tests\Mocks\ClientMock;
-use Pok\WebArchiveDotOrg\Tests\Mocks\RequestMock;
+use WebArchive\Tests\Mocks\ClientMock;
+use WebArchive\Tests\Mocks\RequestMock;
 
 class ArchiveDotOrgTest extends \PHPUnit_Framework_TestCase
 {
