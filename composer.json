@@ -1,5 +1,5 @@
 {
-    "name": "pokap/webarchivedotorg",
+    "name": "pokap/webarchive",
     "type": "library",
     "description": "Client for web.archive.org",
     "keywords": ["archive"],
