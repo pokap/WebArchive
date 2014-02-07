@@ -11,9 +11,12 @@ Usage
 Example :
 
 ``` php
-$client = new Client(new Request('http://archive.org/', 2013));
+
+$request = new Request('http://archive.org/', ['timeout' => 10]);
+
+$client = new Client($request, new WayBackProvider(2013)));
 
 $response = $client->send();
 
-var_dump($response->getDateArchives()); // date for each archive ...
+var_dump($response->getSnapshots()); // snapshot archive ...
 ```

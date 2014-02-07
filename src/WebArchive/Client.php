@@ -4,6 +4,8 @@ namespace WebArchive;
 
 use Zend\Http\Client as HttpClient;
 
+use WebArchive\Provider\ProviderInterface;
+
 /**
  * @author Florent Denis <dflorent.pokap@gmail.com>
  */
@@ -15,6 +17,11 @@ class Client
     protected $request;
 
     /**
+     * @var ProviderInterface
+     */
+    protected $provider;
+
+    /**
      * @var \Zend\Http\Client
      */
     protected $client;
@@ -22,13 +29,15 @@ class Client
     /**
      * Constructor.
      *
-     * @param Request            $request
-     * @param array|\Traversable $options
+     * @param Request           $request
+     * @param ProviderInterface $provider
      */
-    public function __construct(Request $request, $options = null)
+    public function __construct(Request $request, ProviderInterface $provider)
     {
-        $this->request = $request;
-        $this->client  = new HttpClient($request->getUri(), $options);
+        $this->request  = $request;
+        $this->provider = $provider;
+
+        $this->client = new HttpClient($provider->createUrlRequest($request->getUrl()), $request->getOptions());
     }
 
     /**
@@ -41,12 +50,6 @@ class Client
      */
     public function send()
     {
-        $response = $this->client->send();
-
-        if ($this->request->isList()) {
-            return new ResponseList($response);
-        } else {
-            return new Response($response, $this->client->getUri());
-        }
+        return $this->provider->generateSnapshots($this->client->send());
     }
 }

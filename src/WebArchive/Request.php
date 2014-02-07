@@ -13,47 +13,35 @@ class Request
     protected $uri;
 
     /**
-     * @var boolean
+     * @var array|\Traversable
      */
-    protected $isList;
+    protected $options;
 
     /**
      * Constructor.
      *
-     * @param string                 $url
-     * @param null|integer|\DateTime $date (optional)
+     * @param string             $url
+     * @param array|\Traversable $options
      */
-    public function __construct($url, $date = null)
+    public function __construct($url, $options = null)
     {
-        $this->isList = true;
-
-        if ($date instanceof \DateTime) {
-            $this->isList = false;
-            $path = sprintf('/%s/', $date->format('YmdHis'));
-        } elseif ($date) {
-            $path = sprintf('/%d1201000000*/', $date);
-        } else {
-            $path = '/*/';
-        }
-
-        $this->uri = 'http://web.archive.org/web' . $path . $url;
-    }
-
-    /**
-     * Request for a list of archives.
-     *
-     * @return boolean
-     */
-    public function isList()
-    {
-        return $this->isList;
+        $this->url     = $url;
+        $this->options = $options;
     }
 
     /**
      * @return string
      */
-    public function getUri()
+    public function getUrl()
     {
-        return $this->uri;
+        return $this->url;
+    }
+
+    /**
+     * @return array|\Traversable
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 }
