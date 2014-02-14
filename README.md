@@ -16,7 +16,5 @@ $request = new Request('http://archive.org/', ['timeout' => 10]);
 
 $client = new Client($request, new WayBackProvider(2013)));
 
-$response = $client->send();
-
-var_dump($response->getSnapshots()); // snapshot archive ...
+var_dump($client->get()); // snapshots archive ...
 ```

@@ -41,15 +41,15 @@ class Client
     }
 
     /**
-     * Send HTTP request.
+     * Send HTTP request and returns the collection of snapshots generated.
      *
-     * @return BaseResponse
+     * @return SnapshotCollection
      *
      * @throws \Zend\Http\Exception\RuntimeException
      * @throws \Zend\Http\Client\Exception\RuntimeException
      */
-    public function send()
+    public function get()
     {
-        return $this->provider->generateSnapshots($this->client->send());
+        return $this->provider->generateSnapshots($this->client->send(), $this->request->getUrl());
     }
 }

@@ -4,15 +4,36 @@ namespace WebArchive\Provider;
 
 use Symfony\Component\DomCrawler\Crawler;
 
+use WebArchive\Snapshot;
+use WebArchive\SnapshotCollection;
+
 use Zend\Http\Response;
 
 class WayBackProvider implements ProviderInterface
 {
+    const BASE_URL = 'http://web.archive.org/web/';
+
     protected $year;
     protected $crawler;
+    protected $currentUrl;
 
+    /**
+     * Constructor.
+     *
+     * @param string $year Year 2014 or * for all (optional)
+     *
+     * @throws \InvalidArgumentException When year value is invalid
+     */
     public function __construct($year = '*')
     {
+        if ($year !== '*' && (strlen($year) !== 4 || !ctype_digit($year))) {
+            throw new \InvalidArgumentException(sprintf('Year value must be like 2014 or "*", "%s" given.', $year));
+        }
+
+        if ($year === '*') {
+            $year = idate('Y');
+        }
+
         $this->year = $year;
     }
 
@@ -21,29 +42,46 @@ class WayBackProvider implements ProviderInterface
      */
     public function createUrlRequest($url)
     {
-        return sprintf('http://web.archive.org/web/%s/%s', $this->year, $url);
-    }
-
-    public function generateSnapshots(Response $response)
-    {
-        return $this->getDates($response, '.pop ul a');
+        return self::BASE_URL . sprintf('%d1201000000*/%s', $this->year, $url);
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function generateSnapshots(Response $response, $url)
+    {
+        $start = \DateTime::createFromFormat('P', mktime(0, 0, 0, 1, 1, $this->year));
+        $snapshots = new SnapshotCollection($start, $start->add(new \DateInterval('P1Y')));
+
+        foreach ($this->getDates($response) as $date) {
+            $snapshot = new Snapshot($date, self::BASE_URL . sprintf('%s/%s', $date->format('YmdHis'), $url));
+
+            $snapshots->getSnapshots()->append($snapshot);
+        }
+
+        return $snapshots;
+    }
+
+    /**
+     * Returns all snapshots captured by the crawler.
+     *
      * @param Response $response
-     * @param $selector
      *
      * @return \DateTime[]
      */
-    protected function getDates(Response $response, $selector)
+    protected function getDates(Response $response)
     {
-        return $this->getCrawler($response)->filter($selector)->each(function ($node, $i) {
+        return $this->getCrawler($response)->filter('.pop ul a')->each(function ($node) {
             /** @var Crawler $node */
             return \DateTime::createFromFormat('YmdHis', substr($node->attr('href'), 5, 14));
         });
     }
 
     /**
+     * Create the crawler from body given by response.
+     *
+     * @param Response $response
+     *
      * @return Crawler
      */
     protected function getCrawler(Response $response)

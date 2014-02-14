@@ -6,7 +6,18 @@ use Zend\Http\Response;
 
 interface ProviderInterface
 {
+    /**
+     * @param $url
+     *
+     * @return string
+     */
     public function createUrlRequest($url);
 
-    public function generateSnapshots(Response $response);
+    /**
+     * @param Response $response
+     * @param string   $url      Deprecated
+     *
+     * @return \WebArchive\SnapshotCollection
+     */
+    public function generateSnapshots(Response $response, $url);
 }
