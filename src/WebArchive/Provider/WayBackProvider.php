@@ -50,7 +50,7 @@ class WayBackProvider implements ProviderInterface
      */
     public function generateSnapshots(Response $response, $url)
     {
-        $start = \DateTime::createFromFormat('P', mktime(0, 0, 0, 1, 1, $this->year));
+        $start = \DateTime::createFromFormat('U', mktime(0, 0, 0, 1, 1, $this->year));
         $snapshots = new SnapshotCollection($start, $start->add(new \DateInterval('P1Y')));
 
         foreach ($this->getDates($response) as $date) {
