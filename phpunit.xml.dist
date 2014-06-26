@@ -12,7 +12,7 @@
          bootstrap="./tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="WebArchiveDotOrg Test Suite">
+        <testsuite name="WebArchive Test Suite">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
@@ -21,7 +21,7 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <directory suffix="*.php">./src/WebArchiveDotOrg</directory>
+                <directory suffix="*.php">./src/WebArchive</directory>
             </exclude>
         </whitelist>
     </filter>

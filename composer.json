@@ -2,7 +2,7 @@
     "name": "pokap/webarchive",
     "type": "library",
     "description": "Client for web.archive.org",
-    "keywords": ["archive"],
+    "keywords": ["web", "archive", "wayback", "memento"],
     "license": "MIT",
     "authors": [
         {"name": "Florent Denis", "email": "dflorent.pokap@gmail.com"}

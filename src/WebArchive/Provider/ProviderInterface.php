@@ -17,7 +17,7 @@ interface ProviderInterface
      * @param Response $response
      * @param string   $url      Deprecated
      *
-     * @return \WebArchive\SnapshotCollection
+     * @return \WebArchive\SnapshotCollection|null
      */
     public function generateSnapshots(Response $response, $url);
 }

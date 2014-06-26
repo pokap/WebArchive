@@ -9,6 +9,9 @@ class SnapshotCollection
 
     public function __construct(\DateTime $begin, \DateTime $end)
     {
+        // the end date is exclude in date period
+        $end = $end->modify('+1 day');
+
         $this->period = new \DatePeriod($begin, new \DateInterval('P1D'), $end);
 
         $this->snapshots = new \ArrayObject();

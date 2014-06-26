@@ -41,6 +41,16 @@ class Client
     }
 
     /**
+     * Returns the instance of zend http client.
+     *
+     * @return HttpClient
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
      * Send HTTP request and returns the collection of snapshots generated.
      *
      * @return SnapshotCollection
@@ -48,7 +58,7 @@ class Client
      * @throws \Zend\Http\Exception\RuntimeException
      * @throws \Zend\Http\Client\Exception\RuntimeException
      */
-    public function get()
+    public function retrieve()
     {
         return $this->provider->generateSnapshots($this->client->send(), $this->request->getUrl());
     }
