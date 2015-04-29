@@ -14,7 +14,7 @@ class WayBackProviderTest extends \PHPUnit_Framework_TestCase
     {
         $collection = $this->generateSnapshots(2013);
 
-        $this->assertCount(124, $collection->getSnapshots());
+        $this->assertCount(1144, $collection->getSnapshots());
     }
 
     public function testGetDate1997()
@@ -37,7 +37,7 @@ class WayBackProviderTest extends \PHPUnit_Framework_TestCase
         $client = new Client($provider->createUrlRequest($uri));
 
         $response = new Response();
-        $response->setContent(file_get_contents(__DIR__.'/fixtures/archive.org-'.$year.'.html'));
+        $response->setContent(implode(gzfile(__DIR__.'/fixtures/archive.org-'.$year.'.html.gz')));
 
         $adapter = new TestAdapter();
         $adapter->setResponse($response);

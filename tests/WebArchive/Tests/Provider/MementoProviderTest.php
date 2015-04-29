@@ -28,7 +28,7 @@ class MementoProviderTest extends \PHPUnit_Framework_TestCase
         $client = new Client($provider->createUrlRequest($uri));
 
         $response = new Response();
-        $response->setContent(file_get_contents(__DIR__.'/fixtures/pokap.io-memento'));
+        $response->setContent(implode(gzfile(__DIR__.'/fixtures/pokap.io-memento.gz')));
 
         $adapter = new TestAdapter();
         $adapter->setResponse($response);
